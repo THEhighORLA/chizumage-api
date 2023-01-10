@@ -35,7 +35,7 @@ const CUser = sequelize.define(
 CUser.findAllData = function () {
   CUser.belongsTo(CUserStatus, {
     foreignKey: "user_status_id",
-    as: "fk_user_status",
+    // as: "fk_user_status1",
   });
   return CUser.findAll();
 };

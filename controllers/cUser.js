@@ -11,8 +11,7 @@ const getItems = async (req, res) => {
   try {
     const user = req.user;
     const data = await cUserModel.findAllData({});
-    console.log('Obteniendo Datos...');
-    console.log(data);
+    console.log('Obteniendo todos los datos...');
     res.send({ data,  user });
   } catch (e) {
     console.log(e)
@@ -29,7 +28,8 @@ const getItem = async (req, res) => {
   try{
     req = matchedData(req);
     const {id} = req;
-    const data = await cUserModel.findOneData(id);
+    const data =  await cUserModel.findOne({ where: { id: id } });
+    
     res.send({ data });
   }catch(e){
     handleHttpError(res,"ERROR_GET_ITEM")
@@ -44,7 +44,8 @@ const getItem = async (req, res) => {
 const createItem = async (req, res) => {
   try {
     const body = matchedData(req);
-    const data = await cUserModel.create(body);
+    console.log(body)
+    // const data = await cUserModel.create(body);
     res.status(201);
     res.send({ data });
   } catch (e) {
