@@ -11,6 +11,7 @@ const models = {
   cOperationTypeModel: require(`${pathModels}/cOperationType`),
   cUserModel: require(`${pathModels}/cUser`),
   cUserStatusModel: require(`${pathModels}/cUserStatus`),
+  cPassword: require(`${pathModels}/cPassword`)
 };
 
 module.exports = models;

@@ -40,7 +40,16 @@ const validatorUpdateItem = [
     check("name")
     .exists()
     .notEmpty(),
+    check("username")
+    .exists()
+    .notEmpty(),
     check("email")
+    .exists()
+    .notEmpty(),
+    check("creation_date")
+    .exists()
+    .notEmpty(),
+    check("passwordkey")
     .exists()
     .notEmpty(),
     (req, res, next) => {

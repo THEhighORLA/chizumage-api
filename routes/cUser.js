@@ -5,6 +5,7 @@ const checkRol = require("../middleware/rol");
 const {
   validatorCreateItem,
   validatorGetItem,
+  validatorUpdateItem,
 } = require("../validators/cUser");
 const {
   getItems,
@@ -96,8 +97,8 @@ router.get("/:id", validatorGetItem, getItem);
  */
 router.post(
   "/",
-  authMiddleware,
-  checkRol(["user", "admin"]),
+  // authMiddleware,
+  // checkRol(["user", "admin"]),
   validatorCreateItem,
   createItem
 );
@@ -141,9 +142,8 @@ router.post(
  */
 router.put(
   "/:id",
-  authMiddleware,
+  // authMiddleware,
   validatorGetItem,
-  validatorCreateItem,
   updateItem
 );
 /**
