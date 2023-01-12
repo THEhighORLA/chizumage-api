@@ -49,26 +49,36 @@ const COperationTransaction = sequelize.define(
 COperationTransaction.findAllData = function () {
   COperationTransaction.belongsTo(CUser, {
     foreignKey: "user_id",
-    // as: "id",
+    as: "user_name",
   });
-  return COperationTransaction.findAll();
-};
-
-COperationTransaction.findAllData = function () {
   COperationTransaction.belongsTo(COperationType, {
     foreignKey: "operation_type_id",
-    // as: "id",
+    as: "op_type",
   });
-  return COperationTransaction.findAll();
-};
-
-COperationTransaction.findAllData = function () {
   COperationTransaction.belongsTo(COperationStatus, {
     foreignKey: "operation_status_id",
-    // as: "id",
+    as: "op_status",
   });
-  return COperationTransaction.findAll();
+  return COperationTransaction.findAll({
+    include: [
+      {
+        model: CUser,
+        as: 'user_name',
+        attributes: ['name'], // columns to select from user table
+      },
+      {
+        model: COperationType,
+        as: 'op_type',
+        attributes: ['name'], // columns to select from user table
+      },{
+        model: COperationStatus,
+        as: 'op_status',
+        attributes: ['name'], // columns to select from user table
+      },
+    ],
+  });
 };
+
 
 COperationTransaction.find = COperationTransaction.findAll;
 COperationTransaction.findById = COperationTransaction.findByPk;

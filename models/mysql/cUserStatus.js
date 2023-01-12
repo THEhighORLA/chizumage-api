@@ -12,6 +12,10 @@ const CUserStatus = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+  },
+  {
+    freezeTableName:true,
+    timestamps:false,
   }
 );
 CUserStatus.find = CUserStatus.findAll;
