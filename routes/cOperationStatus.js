@@ -2,18 +2,13 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/session");
 const checkRol = require("../middleware/rol");
-const {
-  validatorCreateItem,
-  validatorGetItem,
-  validatorUpdateItem,
-} = require("../validators/cUser");
+
+
+
 const {
   getItems,
-  getItem,
-  createItem,
-  updateItem,
-  deleteItem,
-} = require("../controllers/cUser");
+  getItem
+} = require("../controllers/cOperationStatus");
 
 /**
  * Get all cUser
@@ -67,7 +62,7 @@ router.get("/", getItems);
  *        '422':
  *          description: Error de validacion.
  */
-router.get("/:id", validatorGetItem, getItem);
+router.get("/:id", getItem);
 /**
  * Register new track
  * @openapi
@@ -95,83 +90,4 @@ router.get("/:id", validatorGetItem, getItem);
  *      '403':
  *        description: No tiene permisos '403'
  */
-router.post(
-  "/",
-  // authMiddleware,
-  // checkRol(["user", "admin"]),
-  validatorCreateItem,
-  createItem
-);
-/**
- * Update track
- * @openapi
- * /cUser/{id}:
- *    put:
- *      tags:
- *        - cUser
- *      summary: "Update track"
- *      description: Actualiza una cancion y obtener el detalle del registro
- *      security:
- *        - bearerAuth: []
- *      parameters:
- *      - name: id
- *        in: path
- *        description: ID de canción a retornar
- *        required: true
- *        schema:
- *          type: string
- *      responses:
- *        '200':
- *          description: Retorna el objeto actualizado en la coleccion.
- *        '422':
- *          description: Error de validacion.
- *      requestBody:
- *          content:
- *            application/json:
- *              schema:
- *                 $ref: "#/components/schemas/track"
- *    responses:
- *      '201':
- *        description: Retorna el objeto insertado en la coleccion con stado '201'
- *        content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/track'
- *      '403':
- *        description: No tiene permisos '403'
- */
-router.put(
-  "/:id",
-  // authMiddleware,
-  validatorGetItem,
-  updateItem
-);
-/**
- * Delete track
- * @openapi
- * /cUser/{id}:
- *    delete:
- *      tags:
- *        - cUser
- *      summary: "Eliminar cancion"
- *      description: Elimiar el detalle de una cancion
- *      security:
- *        - bearerAuth: []
- *      parameters:
- *      - name: id
- *        in: path
- *        description: ID de canción a retornar
- *        required: true
- *        schema:
- *          type: string
- *      responses:
- *        '200':
- *          description: Retorna el objecto de la cancion.
- *        '422':
- *          description: Error de validacion.
- */
-router.delete("/:id",
-//  authMiddleware,
- validatorGetItem,
- deleteItem);
 module.exports = router;

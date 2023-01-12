@@ -4,16 +4,17 @@ const authMiddleware = require("../middleware/session");
 const checkRol = require("../middleware/rol");
 const {
   validatorCreateItem,
-  validatorGetItem,
-  validatorUpdateItem,
-} = require("../validators/cUser");
+} = require("../validators/cOperationTransaction");
+
+
+
 const {
   getItems,
   getItem,
   createItem,
   updateItem,
   deleteItem,
-} = require("../controllers/cUser");
+} = require("../controllers/cOperationTransaction");
 
 /**
  * Get all cUser
@@ -67,7 +68,7 @@ router.get("/", getItems);
  *        '422':
  *          description: Error de validacion.
  */
-router.get("/:id", validatorGetItem, getItem);
+router.get("/:id", getItem);
 /**
  * Register new track
  * @openapi
@@ -143,7 +144,7 @@ router.post(
 router.put(
   "/:id",
   // authMiddleware,
-  validatorGetItem,
+  // validatorGetItem,
   updateItem
 );
 /**
@@ -172,6 +173,6 @@ router.put(
  */
 router.delete("/:id",
 //  authMiddleware,
- validatorGetItem,
+//  validatorGetItem,
  deleteItem);
 module.exports = router;

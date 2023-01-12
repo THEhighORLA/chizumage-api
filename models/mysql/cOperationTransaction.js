@@ -1,11 +1,17 @@
 const { sequelize } = require("../../config/mysql");
 const { DataTypes } = require("sequelize");
-const cOperationType = require('./cOperationType');
+const COperationType = require('./cOperationType');
 const COperationStatus = require("./cOperationStatus");
+const CUser = require("./cUser");
 
 const COperationTransaction = sequelize.define(
   "c_operation_transaction",
   {
+    id:{
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     user_id: {
       type: DataTypes.INTEGER,
     },
@@ -32,30 +38,38 @@ const COperationTransaction = sequelize.define(
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
+    freezeTableName:true
   }
 );
 
 /**
  * Implementando modelo personalizado
  */
+COperationTransaction.findAllData = function () {
+  COperationTransaction.belongsTo(CUser, {
+    foreignKey: "user_id",
+    // as: "id",
+  });
+  return COperationTransaction.findAll();
+};
 
 COperationTransaction.findAllData = function () {
-  COperationTransaction.belongsTo(cOperationType, {
+  COperationTransaction.belongsTo(COperationType, {
     foreignKey: "operation_type_id",
-    as: "id",
+    // as: "id",
   });
-  return COperationTransaction.findAll({ include: "id" });
+  return COperationTransaction.findAll();
 };
 
 COperationTransaction.findAllData = function () {
   COperationTransaction.belongsTo(COperationStatus, {
     foreignKey: "operation_status_id",
-    as: "id",
+    // as: "id",
   });
-  return COperationTransaction.findAll({ include: "id" });
+  return COperationTransaction.findAll();
 };
 
-// COperationTransaction.find = COperationTransaction.findAll;
-// COperationTransaction.findById = COperationTransaction.findByPk;
+COperationTransaction.find = COperationTransaction.findAll;
+COperationTransaction.findById = COperationTransaction.findByPk;
 module.exports = COperationTransaction;
