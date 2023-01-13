@@ -4,3 +4,4 @@ test-output.log
 storage/*
 !storage/.gitkeep
 coverage/
+version.txt
