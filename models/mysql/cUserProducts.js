@@ -1,5 +1,5 @@
 const { sequelize } = require("../../config/mysql");
-const { DataStatuss, DataTypes } = require("sequelize");
+const {  DataTypes } = require("sequelize");
 
 const CUser = require('./cUser');
 const CProducts = require('./cProducts');
@@ -34,23 +34,23 @@ const CUserProducts = sequelize.define(
 CUserProducts.findAllData = function () {
   CUserProducts.belongsTo(CProducts, {
     foreignKey: "product_id",
-    as: "prod_name",
+    // as: "prod_name",
   });
 
   CUserProducts.belongsTo(CUser, {
     foreignKey: "user_id",
-    as: "user_name",
+    // as: "user_name",
   });
   return CUserProducts.findAll({
     include: [
       {
         model: CUser,
-        as: 'user_name',
+        // as: 'user_name',
         attributes: ['name'], // columns to select from user table
       },
       {
         model: CProducts,
-        as: 'prod_name',
+        // as: 'prod_name',
         attributes: ['name'], // columns to select from user table
       }
     ],
