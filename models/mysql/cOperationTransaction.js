@@ -49,30 +49,30 @@ const COperationTransaction = sequelize.define(
 COperationTransaction.findAllData = function () {
   COperationTransaction.belongsTo(CUser, {
     foreignKey: "user_id",
-    as: "user_name",
+    // as: "user_name",
   });
   COperationTransaction.belongsTo(COperationType, {
     foreignKey: "operation_type_id",
-    as: "op_type",
+    // as: "op_type",
   });
   COperationTransaction.belongsTo(COperationStatus, {
     foreignKey: "operation_status_id",
-    as: "op_status",
+    // as: "op_status",
   });
   return COperationTransaction.findAll({
     include: [
       {
         model: CUser,
-        as: 'user_name',
+        // as: 'user_name',
         attributes: ['name'], // columns to select from user table
       },
       {
         model: COperationType,
-        as: 'op_type',
+        // as: 'op_type',
         attributes: ['name'], // columns to select from user table
       },{
         model: COperationStatus,
-        as: 'op_status',
+        // as: 'op_status',
         attributes: ['name'], // columns to select from user table
       },
     ],
