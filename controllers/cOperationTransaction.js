@@ -1,6 +1,10 @@
 const { matchedData } = require("express-validator");
 const { cOperationTransactionModel } = require("../models");
 const { handleHttpError } = require("../utils/handleError");
+const { getUserById } = require("./cUser");
+const { getUserProductById , updateAmountUserProduct} = require("./cUserProducts");
+
+
 
 const utils = require('./general');
 
@@ -59,10 +63,31 @@ const createItem = async (req, res) => {
       comentary
     };
     
-    const data = await cOperationTransactionModel.create(opBody);
+    const userData = await getUserById(user_id);
+    const userProductId = operation_type_id == 1? userData['pay_product_id']:userData['tx_product_id'];
+    
+    const userProductData = await getUserProductById(userProductId);
+    let total = parseFloat(userProductData['amount_value']);
+
+    if(operation_type_id == 1){
+      total = parseFloat(userProductData.amount) + parseFloat(opBody.amount_value);
+    }else{
+      total = parseFloat(userProductData.amount) - parseFloat(opBody.amount_value);
+    }
+
+    let data = {};
+    let status;
+
+    if(total > 0 ){
+      updateAmountUserProduct(userProductId,total);
+      data = await cOperationTransactionModel.create(opBody);
+      status = utils.statusSender('000000');
+    }else{
+      status = utils.statusSender('100100');
+    }
 
     res.status(201);
-    res.send({ data });
+    res.send({ data,status});
   } catch (e) {
     console.log("-------------ERROR-------------");
     console.log(e);

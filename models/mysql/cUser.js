@@ -26,6 +26,12 @@ const CUser = sequelize.define(
     creation_date: {
       type: DataTypes.STRING,
     },
+    tx_product_id: {
+      type: DataTypes.INTEGER,
+    },
+    pay_product_id: {
+      type: DataTypes.INTEGER,
+    }
   },
   {
     freezeTableName:true,
