@@ -39,3 +39,31 @@ exports.getExpirationPasswordDate = (date) => {
     let expiredDate =  new Date(fDate.setMonth(fDate.getMonth()+3)).toLocaleDateString().replaceAll('/','-');
     return usDateToLatin(expiredDate);
 }   
+
+
+exports.statusSender = (statusCode)=>{
+    const onlyZeros =  /^0*$/;
+    let status = {
+        statusCode,
+        message:''
+    };
+    if(onlyZeros.test(statusCode)){
+        status.statusCode = 0;
+        status.message = "Operacion Exitosa";
+    }else{
+        status.message = getCodeError(status.statusCode);
+    }
+
+    return status;
+}
+
+
+const getCodeError = (statusCode) => {
+    let message = 'NOT_MESSAGE_FOUND';
+
+    switch(statusCode){
+        case '100100':
+            message = 'Error en la operacion - Monto Insuficiente';
+    }
+    return message;
+}

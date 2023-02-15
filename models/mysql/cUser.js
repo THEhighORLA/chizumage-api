@@ -26,6 +26,12 @@ const CUser = sequelize.define(
     creation_date: {
       type: DataTypes.STRING,
     },
+    tx_product_id: {
+      type: DataTypes.INTEGER,
+    },
+    pay_product_id: {
+      type: DataTypes.INTEGER,
+    }
   },
   {
     freezeTableName:true,
@@ -36,12 +42,12 @@ const CUser = sequelize.define(
 CUser.findAllData = function () {
   CUser.belongsTo(CUserStatus, {
     foreignKey: "user_status_id",
-    as: "user_status",
+    // as: "user_status",
   });
   return CUser.findAll({
     include: [{
       model: CUserStatus,
-      as: 'user_status',
+      // as: 'user_status',
       attributes: ['name'], // columns to select from user table
     }],
   });

@@ -25,6 +25,12 @@ const getExpirationPasswordDate = (date) => {
   return usDateToLatin(expiredDate);
 }   
 
+
+const getUserById = async (userId) =>  {
+  return await cUserModel.findByPk(userId);
+}
+
+
 /**
  * Obtener lista de la base de datos!
  * @param {*} req
@@ -152,4 +158,4 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+module.exports = { getItems, getItem, createItem, updateItem, deleteItem, getUserById };

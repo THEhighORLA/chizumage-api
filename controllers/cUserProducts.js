@@ -4,6 +4,14 @@ const { handleHttpError } = require("../utils/handleError");
 
 const utils = require('./general');
 
+const getUserProductById = async (userProductId) =>  {
+  return await cUserProducts.findByPk(userProductId);
+}
+
+const updateAmountUserProduct = async (id, amount) => {
+  return await cUserProducts.update({ amount }, { where: { id } });
+}
+
 /**
  * Obtener lista de la base de datos!
  * @param {*} req
@@ -62,4 +70,4 @@ const updateItem = async (req, res) => {
   }
 };
 
-module.exports = { getItems, getItem, updateItem };
+module.exports = { getItems, getItem, updateItem,getUserProductById,updateAmountUserProduct};

@@ -4,6 +4,7 @@ const COperationType = require('./cOperationType');
 const COperationStatus = require("./cOperationStatus");
 const CUser = require("./cUser");
 
+
 const COperationTransaction = sequelize.define(
   "c_operation_transaction",
   {
